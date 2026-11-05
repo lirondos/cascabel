@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cascabel-ner"
+version = "0.8.0"
+description = "Span profiling and fine-grained error analysis for NER and span-labeling datasets and models"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Elena Álvarez Mellado", email = "ealvarezmellado@gmail.com" },
+]
+requires-python = ">=3.9"
+dependencies = [
+    "spacy>=3.4,<4",
+    # numpy powers the sentence-level bootstrap; always present via spacy,
+    # declared here for honesty.
+    "numpy>=1.21",
+    # Workaround: spaCy imports click directly but stopped receiving it
+    # transitively when typer 0.27 dropped click from its dependencies.
+    # Remove once spaCy declares click itself.
+    "click>=8",
+    # Character LSTM language models for surprisal and prototypicality.
+    "torch>=2.0",
+]
+keywords = [
+    "ner",
+    "named-entity-recognition",
+    "sequence-labeling",
+    "evaluation",
+    "error-analysis",
+    "nlp",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+]
+
+[project.scripts]
+cascabel = "cascabel.cli:main"
+
+[project.urls]
+Repository = "https://github.com/lirondos/cascabel"
+
+[tool.setuptools]
+packages = ["cascabel"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
